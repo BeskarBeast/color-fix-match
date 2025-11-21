@@ -2,6 +2,9 @@ services:
   - type: web
     name: color-detector
     env: python
-    python_version: 3.10  # This sets the Python version on Render (you can choose the version you want)
+    python_version: 3.10
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python server.py"
+    envVars:
+      - key: "MY_SECRET_KEY"
+        value: "my-secret-value"
