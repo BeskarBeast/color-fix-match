@@ -3,6 +3,7 @@ from PIL import Image, UnidentifiedImageError
 import numpy as np
 from sklearn.cluster import KMeans
 import os
+import sys
 
 # ------------------------------
 # Initialize Flask app
@@ -14,19 +15,16 @@ app = Flask(__name__)
 # ------------------------------
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5MB max file size
 
-
 # ------------------------------
 # SECURITY: Allowed image extensions
 # ------------------------------
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
-
 
 def allowed_file(filename):
     return (
         "." in filename and 
         filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
     )
-
 
 # ------------------------------
 # Serve homepage
@@ -38,7 +36,6 @@ def home():
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory("static", "favicon.svg", mimetype="image/svg+xml")
-
 
 # ------------------------------
 # Color detection endpoint
@@ -104,4 +101,9 @@ def get_color():
 # Run the server
 # ------------------------------
 if __name__ == "__main__":
+    # Read Python version from environment variable
+    python_version_env = os.getenv("PYTHON_VERSION", "not set")
+    print(f"Environment variable PYTHON_VERSION: {python_version_env}")
+    print(f"Actual Python runtime: {sys.version.split()[0]}")
+
     app.run(host="0.0.0.0", port=8000, debug=False)
