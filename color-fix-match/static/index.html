@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Color Fix Match</title>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Paint Color Detector</title>
 
-<!-- Favicon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   
   <style>
@@ -34,15 +29,17 @@
       text-align: center;
       user-select: none;
     }
-    h1 {
-      margin-bottom: 24px;
+    h1, h2 {
+      margin: 0 0 24px;
       font-weight: 700;
       color: #222;
     }
-
-    input[type="file"] {
-      display: none;
+    h2 {
+      font-weight: 600;
+      color: #555;
     }
+
+    input[type="file"] { display: none; }
 
     .file-actions {
       display: flex;
@@ -51,7 +48,6 @@
       gap: 10px;
       margin-bottom: 15px;
     }
-
     .file-label {
       display: inline-block;
       padding: 12px 24px;
@@ -61,14 +57,10 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      user-select: none;
       text-align: center;
       min-width: 130px;
     }
-    .file-label:hover, .file-label:focus {
-      background-color: #0056b3;
-      outline: none;
-    }
+    .file-label:hover, .file-label:focus { background-color: #0056b3; outline: none; }
 
     button {
       margin-top: 10px;
@@ -82,12 +74,8 @@
       transition: background-color 0.3s ease;
       font-weight: 600;
       width: 100%;
-      user-select: none;
     }
-    button:hover, button:focus {
-      background: #0056b3;
-      outline: none;
-    }
+    button:hover, button:focus { background: #0056b3; outline: none; }
 
     #drop-area {
       margin-top: 20px;
@@ -97,7 +85,6 @@
       cursor: pointer;
       color: #666;
       font-size: 14px;
-      user-select: none;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     #drop-area.dragover {
@@ -119,7 +106,6 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      user-select: none;
     }
     #preview {
       max-width: 100%;
@@ -134,7 +120,6 @@
       font-size: 16px;
       text-align: center;
       pointer-events: none;
-      user-select: none;
     }
 
     #loading {
@@ -150,17 +135,13 @@
       animation: spin 1s linear infinite;
       margin: 0 auto;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
     #status-message {
       margin-top: 12px;
       font-size: 14px;
       color: #cc0000;
       min-height: 18px;
-      user-select: none;
     }
 
     #result {
@@ -179,11 +160,8 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.05);
       opacity: 0;
       transition: opacity 0.4s ease;
-      user-select: none;
     }
-    #result.visible {
-      opacity: 1;
-    }
+    #result.visible { opacity: 1; }
 
     #color-box {
       width: 60px;
@@ -193,34 +171,20 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.12);
       flex-shrink: 0;
     }
-    .color-info {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-start;
-      user-select: text;
-    }
-    .color-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .color-info { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .color-row { display: flex; align-items: center; gap: 8px; }
     .color-value {
       background: #f5f5f5;
       border-radius: 6px;
       padding: 4px 8px;
       font-family: monospace;
-      user-select: all;
       cursor: pointer;
+      user-select: all;
       transition: background-color 0.2s ease;
     }
-    .color-value:hover {
-      background-color: #e0e0e0;
-    }
+    .color-value:hover { background-color: #e0e0e0; }
 
-    .section {
-      margin-bottom: 20px;
-    }
+    .section { margin-bottom: 20px; }
 
     @media (max-width: 480px) {
       .container { padding: 20px; }
@@ -247,7 +211,6 @@
       z-index: 10;
     }
 
-    /* Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -278,13 +241,12 @@
 </head>
 <body>
   <div class="container" role="main" aria-label="Car Paint Color Detector">
-    <h2 style="margin:0; font-weight:600; color:#555;">Color Fix Match</h2>
-<h1>Paint Color Detector</h1>
+    <h2>Color Fix Match</h2>
+    <h1>Paint Color Detector</h1>
 
     <div class="section file-actions">
       <input type="file" id="image" accept="image/*" aria-label="Choose image file" />
       <input type="file" id="cameraInput" accept="image/*" capture="environment" aria-label="Take a picture with camera" />
-
       <label for="image" class="file-label" tabindex="0">Choose Image</label>
       <label for="cameraInput" class="file-label" tabindex="0">Take a Picture</label>
     </div>
@@ -312,19 +274,12 @@
     <div class="section" id="result" aria-live="polite" aria-atomic="true">
       <div id="color-box" aria-label="Detected color preview"></div>
       <div class="color-info">
-        <div class="color-row">
-          <strong>HEX:</strong>
-          <span id="hex" class="color-value" tabindex="0" title="Click to copy HEX color"></span>
-        </div>
-        <div class="color-row">
-          <strong>RGB:</strong>
-          <span id="rgb" class="color-value" tabindex="0" title="Click to copy RGB color"></span>
-        </div>
+        <div class="color-row"><strong>HEX:</strong> <span id="hex" class="color-value" tabindex="0" title="Click to copy HEX color"></span></div>
+        <div class="color-row"><strong>RGB:</strong> <span id="rgb" class="color-value" tabindex="0" title="Click to copy RGB color"></span></div>
       </div>
     </div>
   </div>
 
-  <!-- Modal for full image view -->
   <div id="image-modal" class="modal" aria-hidden="true">
     <span id="close-modal" class="close" aria-label="Close">&times;</span>
     <img id="modal-img" alt="Full image view" />
@@ -335,7 +290,6 @@ const fileInput = document.getElementById("image");
 const cameraInput = document.getElementById("cameraInput");
 const preview = document.getElementById("preview");
 const placeholder = document.getElementById("placeholder");
-const previewContainer = document.getElementById("preview-container");
 const result = document.getElementById("result");
 const loading = document.getElementById("loading");
 const statusMessage = document.getElementById("status-message");
@@ -368,16 +322,8 @@ function copyToClipboard(text, event) {
   textarea.value = text;
   document.body.appendChild(textarea);
   textarea.select();
-  try {
-    document.execCommand("copy");
-
-    // Only show tooltip on desktop
-    if (!/Mobi|Android/i.test(navigator.userAgent)) {
-      showTooltipAtCursor(event, "Copied!");
-    }
-  } catch (err) {
-    console.error("Failed to copy text", err);
-  }
+  try { document.execCommand("copy"); if (!/Mobi|Android/i.test(navigator.userAgent)) showTooltipAtCursor(event, "Copied!"); } 
+  catch (err) { console.error("Failed to copy text", err); }
   document.body.removeChild(textarea);
 }
 
@@ -386,128 +332,60 @@ function showTooltipAtCursor(event, message = "Copied!") {
   tooltip.className = "copy-tooltip";
   tooltip.textContent = message;
   document.body.appendChild(tooltip);
-
-  const cursorX = event.clientX;
-  const cursorY = event.clientY;
-
+  const cursorX = event.clientX, cursorY = event.clientY;
   tooltip.style.left = `${cursorX - tooltip.offsetWidth / 2}px`;
   tooltip.style.top = `${cursorY - tooltip.offsetHeight - 8}px`;
-  tooltip.style.opacity = 1;
-  tooltip.style.transform = "translateY(0)";
-
-  setTimeout(() => {
-    tooltip.style.opacity = 0;
-    tooltip.style.transform = "translateY(-10px)";
-    setTimeout(() => tooltip.remove(), 300);
-  }, 1000);
+  tooltip.style.opacity = 1; tooltip.style.transform = "translateY(0)";
+  setTimeout(() => { tooltip.style.opacity = 0; tooltip.style.transform = "translateY(-10px)"; setTimeout(() => tooltip.remove(), 300); }, 1000);
 }
 
-// HEX & RGB event listeners
 [hexText, rgbText].forEach(el => {
   el.addEventListener("click", e => copyToClipboard(el.textContent, e));
-  el.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") copyToClipboard(el.textContent, e);
-  });
+  el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") copyToClipboard(el.textContent, e); });
 });
 
-// Image modal
-preview.addEventListener("click", () => {
-  if (preview.src) {
-    modal.style.display = "flex";
-    modalImg.src = preview.src;
-    modal.setAttribute("aria-hidden", "false");
-  }
-});
-closeModal.addEventListener("click", () => {
-  modal.style.display = "none";
-  modal.setAttribute("aria-hidden", "true");
-});
-modal.addEventListener("click", e => {
-  if (e.target === modal) {
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-  }
-});
+preview.addEventListener("click", () => { if (preview.src) { modal.style.display = "flex"; modalImg.src = preview.src; modal.setAttribute("aria-hidden", "false"); } });
+closeModal.addEventListener("click", () => { modal.style.display = "none"; modal.setAttribute("aria-hidden", "true"); });
+modal.addEventListener("click", e => { if (e.target === modal) { modal.style.display = "none"; modal.setAttribute("aria-hidden", "true"); } });
 
-// Drop area handlers
 dropArea.addEventListener("dragover", e => { e.preventDefault(); dropArea.classList.add("dragover"); });
 dropArea.addEventListener("dragleave", e => { e.preventDefault(); dropArea.classList.remove("dragover"); });
 dropArea.addEventListener("drop", e => {
-  e.preventDefault();
-  dropArea.classList.remove("dragover");
+  e.preventDefault(); dropArea.classList.remove("dragover");
   if (e.dataTransfer.files.length) {
     const file = e.dataTransfer.files[0];
     if (file.type.startsWith("image/")) {
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
-      fileInput.files = dataTransfer.files;
-      showPreview(file);
-      resetUI();
-    } else {
-      statusMessage.textContent = "Please drop a valid image file.";
-    }
+      const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
+      showPreview(file); resetUI();
+    } else statusMessage.textContent = "Please drop a valid image file.";
   }
 });
 dropArea.addEventListener("click", () => fileInput.click());
-dropArea.addEventListener("keydown", e => {
-  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); }
-});
+dropArea.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
 
-// File input handlers
-[fileInput, cameraInput].forEach(input => {
-  input.addEventListener("change", e => {
-    const file = e.target.files[0];
-    if (file) {
-      showPreview(file);
-      resetUI();
-    } else {
-      preview.style.display = "none";
-      placeholder.style.display = "block";
-    }
-  });
-});
+[fileInput, cameraInput].forEach(input => input.addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (file) { showPreview(file); resetUI(); } 
+  else { preview.style.display = "none"; placeholder.style.display = "block"; }
+}));
 
-// Detect button
 detectBtn.addEventListener("click", async () => {
   const file = fileInput.files[0] || cameraInput.files[0];
-  if (!file) {
-    statusMessage.textContent = "Please upload or take a photo.";
-    return;
-  }
-
-  resetUI();
-  showPreview(file);
-  loading.style.display = "block";
-  detectBtn.setAttribute("aria-busy", "true");
-
-  const form = new FormData();
-  form.append("image", file);
-
+  if (!file) { statusMessage.textContent = "Please upload or take a photo."; return; }
+  resetUI(); showPreview(file); loading.style.display = "block"; detectBtn.setAttribute("aria-busy", "true");
+  const form = new FormData(); form.append("image", file);
   const localIP = "192.168.0.242"; 
-  const serverURL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-                    ? "/color"
-                    : `http://${localIP}:8000/color`;
-
+  const serverURL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" ? "/color" : `http://${localIP}:8000/color`;
   try {
     const response = await fetch(serverURL, { method: "POST", body: form });
     const data = await response.json();
-    loading.style.display = "none";
-    detectBtn.setAttribute("aria-busy", "false");
-
-    if (data.error) {
-      statusMessage.textContent = "Error: " + data.error;
-      return;
-    }
-
+    loading.style.display = "none"; detectBtn.setAttribute("aria-busy", "false");
+    if (data.error) { statusMessage.textContent = "Error: " + data.error; return; }
     colorBox.style.backgroundColor = data.hex;
     hexText.textContent = data.hex;
     rgbText.textContent = data.rgb.join(", ");
     result.classList.add("visible");
-  } catch (err) {
-    loading.style.display = "none";
-    detectBtn.setAttribute("aria-busy", "false");
-    statusMessage.textContent = "Could not contact server. Please try again.";
-  }
+  } catch (err) { loading.style.display = "none"; detectBtn.setAttribute("aria-busy", "false"); statusMessage.textContent = "Could not contact server. Please try again."; }
 });
 </script>
 </body>
