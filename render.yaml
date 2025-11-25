@@ -16,3 +16,4 @@ services:
         value: production
     ports:
       - 8000
+    autoDeploy: true
