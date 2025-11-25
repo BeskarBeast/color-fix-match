@@ -1,0 +1,12 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="40" fill="#1a1a1a"/>
+  <text x="50%" y="50%" 
+        font-family="Arial, sans-serif" 
+        font-weight="700" 
+        font-size="120" 
+        fill="white" 
+        text-anchor="middle" 
+        dominant-baseline="middle">
+    CFM
+  </text>
+</svg>
