@@ -374,8 +374,7 @@ detectBtn.addEventListener("click", async () => {
   if (!file) { statusMessage.textContent = "Please upload or take a photo."; return; }
   resetUI(); showPreview(file); loading.style.display = "block"; detectBtn.setAttribute("aria-busy", "true");
   const form = new FormData(); form.append("image", file);
-  const localIP = "192.168.0.242"; 
-  const serverURL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" ? "/color" : `http://${localIP}:8000/color`;
+  const serverURL = "/color";
   try {
     const response = await fetch(serverURL, { method: "POST", body: form });
     const data = await response.json();
