@@ -1,10 +1,11 @@
-# render.yaml
-
 services:
   - type: web
     name: color-fix-match
     env: python
     plan: free
+    region: frankfurt
+    branch: main
+    root: color-fix-match
     buildCommand: pip install -r requirements.txt
     startCommand: python server.py
     envVars:
