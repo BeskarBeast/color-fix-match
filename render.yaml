@@ -8,7 +8,7 @@ services:
     root: color-fix-match
 
     runtime:
-      pythonVersion: "3.12.3"   # <-- THIS is the ONLY correct way
+      pythonVersion: "3.12.3"   # full version required
 
     buildCommand: |
       python -m pip install --upgrade pip setuptools wheel
