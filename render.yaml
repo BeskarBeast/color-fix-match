@@ -6,15 +6,22 @@ services:
     region: frankfurt
     branch: main
     root: color-fix-match
-    pythonVersion: 3.13.4
-    runtime: python-3.13.4  
+
+    runtime:
+      pythonVersion: "3.12.3"   # <-- THIS is the ONLY correct way
+
     buildCommand: |
       python -m pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
+
     startCommand: python server.py
+
     envVars:
       - key: FLASK_ENV
         value: production
+
     ports:
-      - 8000
+      - port: 8000
+        protocol: http
+
     autoDeploy: true
